@@ -46,16 +46,6 @@ ll mminv(ll a, ll b)
 } // for non prime b
 ll mminvprime(ll a, ll b) { return expo(a, b - 2, b); }
 
-bool revsort(ll a, ll b) { return a > b; }
-
-ll combination(ll n, ll r, ll m, ll *fact, ll *ifact)
-{
-    ll val1 = fact[n];
-    ll val2 = ifact[n - r];
-    ll val3 = ifact[r];
-    return (((val1 * val2) % m) * val3) % m;
-}
-void google(int t) { cout << "Case #" << t << ": "; }
 vector<ll> sieve(int n)
 {
     int *arr = new int[n + 1]();

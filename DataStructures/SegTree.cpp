@@ -1,9 +1,7 @@
-
  // 0-based indexed segment tree , with last element of range of element included
 #define var ll
  
 // struct var{
-//   //var as per needed in question (var present in the node of the segment tree)
 // 	ll x;
 // };
  
@@ -13,9 +11,7 @@ struct seg_tree{
 	vector<var> a;
 	vector<ll> lazy;
 	vector<bool> clazy;
-	//declare invariant for calc
 	var invariant = INF;
-	
 	void init(ll n){
 		size = 1;
 		while(size < n) size*=2;
@@ -23,13 +19,10 @@ struct seg_tree{
 		lazy.assign(2*size ,0);
 		clazy.assign(2*size , false);
 	}
-	
 	var merge( var b , var c){
-		//merge nodes of the seg_tree
 		// minimum:var a = min(b , c);
 		return a;
 	}
-
     // apply operation defines what we are doing in range update , for adding a+=operation(a,b); , assignment: a = operation(a,b);
 	void apply_operation(ll &a , ll b){
 		//addition:a +=b;
@@ -63,8 +56,6 @@ struct seg_tree{
 		build(arr , mid+1 , r , 2*node+2);
 		a[node] = merge( a[2*node+1], a[2*node+2]);
 	}
- 
- 
 	void modify(ll l , ll r , ll v , ll node , ll lx , ll rx){
 		if(clazy[node]){
 			propagate(node , lx , rx);
@@ -72,7 +63,6 @@ struct seg_tree{
 		if(lx > r || l > rx) return;
 		if(lx >= l && rx <= r){
 			//addition:lazy[node]+=v
-			//assignment:lazy[node]=v;
 			lazy[node]+=v;
 			clazy[node] = true;
 			propagate(node , lx , rx);
@@ -83,7 +73,6 @@ struct seg_tree{
 		modify(l , r ,v , 2*node+2 , mid+1 , rx);
 		a[node] = merge( a[2*node+1] , a[2*node+2]);
 	}
- 
 	var get(ll i , ll node, ll lx , ll rx){
 		if(clazy[node]){
 			propagate(node , lx  , rx);
@@ -91,7 +80,6 @@ struct seg_tree{
 		if(rx == lx){
 			return a[node];
 		}
- 
 		ll mid = (lx+rx)/2;
 		ll res;
 		if(i <= mid){
@@ -100,15 +88,11 @@ struct seg_tree{
 			return get(i , 2*node+2 , mid+1 , rx);
 		}
 	}
-	
 	void set(ll l , ll r , ll v  , ll node , ll pos ){
-		
 		if(clazy[node]){
 			propagate(node , l , r);
 		}
 		if(l == r){
-			//set value
-			//addition:lazy[node]+=v
 			//assignment:lazy[node]=v;
 			clazy[node] = 1;
 			lazy[node] += v;
@@ -123,7 +107,6 @@ struct seg_tree{
 		}
 		a[node]= merge(a[2*node+1], a[2*node+2]);
 	}
-	
 	var calc(ll l , ll r , ll lx , ll rx , ll node){
 		if(clazy[node]){
 			propagate(node , lx , rx);
@@ -158,15 +141,6 @@ struct seg_tree{
  
 	var get(ll i){
 		return get(i , 0 , 0, size-1);
-	}
-	
-	
- 
-	void prints(void){
-		cout << size << endl;
-		printv(a);
-		printv(lazy);
-		printv(clazy);
 	}
  
 };
