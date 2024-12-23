@@ -1,11 +1,7 @@
-//Decomposing queries in blocks of sqrt(N) size and storing the results in a vector, while increasing l and r in such a way, that it is most optimal. 
-
-
 const int N = 2e5 + 5; 
 const int Q = 2e5 + 5; 
 const int M = 1e6 + 5; 
 const int SZ = sqrt(N) + 1;
-
 struct var{
 	ll l , r , idx;
 } qr[Q];

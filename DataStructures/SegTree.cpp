@@ -1,12 +1,8 @@
  // 0-based indexed segment tree , with last element of range of element included
-#define var ll
- 
 // struct var{
 // 	ll x;
 // };
- 
 struct seg_tree{
- 
 	ll size;
 	vector<var> a;
 	vector<ll> lazy;
@@ -23,7 +19,6 @@ struct seg_tree{
 		// minimum:var a = min(b , c);
 		return a;
 	}
-    // apply operation defines what we are doing in range update , for adding a+=operation(a,b); , assignment: a = operation(a,b);
 	void apply_operation(ll &a , ll b){
 		//addition:a +=b;
 		//assignment: a=b;
@@ -122,25 +117,20 @@ struct seg_tree{
 		var sum2 = calc(l , r , mid+1 , rx , 2*node+2);
 		return merge(sum1 , sum2);
 	}
-	//0 BASED INDEXED , QUERY, AND STUFF WILL BE FROM 0 to n-1, if q is 1 to n, then l--, r--, REMEMBER U DUMB
 	 void build( vll &arr ){
 		build(arr , 0 , size-1 , 0);
 	}
-
 	var calc(ll l , ll r){
 		var ans = calc(l , r , 0 , size-1 , 0);
 		return ans;
 	}
-	
 	void set(ll i , ll v){
 		set(0 , size-1 , v, 0 , i);
 	}
 	void modify(ll l , ll r , ll v){
 		modify(l , r ,v , 0 , 0 , size-1);
 	}
- 
 	var get(ll i){
 		return get(i , 0 , 0, size-1);
 	}
- 
 };

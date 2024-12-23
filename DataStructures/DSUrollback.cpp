@@ -1,16 +1,11 @@
 int n , q;
-
 const int maxN = 3e5+1;
 vll sol;
-
 struct DSU{
 vector<pll> st[4*maxN];
 vll p;
-//path compression wont work during rollbacks, so rank compression
 vll rank;
-// e is basically storing the states, where .first is storing the present, and .second is storing the past to the moment where it was changed(cool)
 vector<pair<int&, int>> e;
-// op is basically storing by how much or how the value changed 
 vll op;
 int ans = 0;
 

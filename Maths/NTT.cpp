@@ -85,7 +85,8 @@ namespace NTT {
             for (ll i=0, d = N/len; i<N; i+=len) {
                 for (ll j=0, idx=0; j<len/2; j++, idx += d) {
                     ll x = v[i+j];
-                    ll y = (wp[invert][idx]*1LL*v[i+j+len/2])%mod;
+                    ll y = (wp[invert][idx]
+                    *1LL*v[i+j+len/2])%mod;
                     v[i+j] = (x+y>=mod ? x+y-mod : x+y);
                     v[i+j+len/2] = (x-y>=0 ? x-y : x-y+mod);
                 }

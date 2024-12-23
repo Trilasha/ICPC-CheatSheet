@@ -1,4 +1,3 @@
-
 vll kmp ( string &s){
     ll n = s.size();
     vll pi(n , 0);
@@ -12,10 +11,7 @@ vll kmp ( string &s){
     }
     return pi;
 }
-
-
 vector<vll>aut;
-
 void compute_automaton(string s){
     s += '#';
     vll pi = kmp(s);
@@ -29,4 +25,21 @@ void compute_automaton(string s){
             }
         }
     }
+}
+vector<int> zFunction(string &str){
+    int n = str.length();
+    vector<int>ans(n);int l = 0,r = 0;
+    for(int i=1;i<n;i++){
+        if(i <= r){
+            ans[i] = min(ans[i-l],r-i+1);
+        }
+        while((i+ans[i])<n and (str[ans[i]] == str[i+ans[i]])){
+            ans[i]++;
+        }
+        if((i+ans[i]-1)>r){
+            l = i;
+            r = i+ans[i]-1;
+        }
+    }
+    return ans;
 }
