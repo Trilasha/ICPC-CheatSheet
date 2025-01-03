@@ -1,45 +1,41 @@
-vll kmp ( string &s){
-    ll n = s.size();
-    vll pi(n , 0);
-    for(int i = 1 ; i < n ; i ++){
-        ll j = pi[i-1];
-        while(j > 0 && s[i] != s[j]){
-            j = pi[j-1];
+void kmp(string s,string t,set<int> &stt){
+    int n=s.size();
+    int m=t.size();
+    vector<int> lps(m);
+    int i=1,j=0;
+    while(i<m){
+        if(t[i]==t[j]){
+            lps[i]=j+1;
+            i++;
+            j++;
         }
-        if(s[i] == s[j]) j++;
-        pi[i] = j;
-    }
-    return pi;
-}
-vector<vll>aut;
-void compute_automaton(string s){
-    s += '#';
-    vll pi = kmp(s);
-    ll n = s.size();
-    for(int i = 0 ; i < n ;i++ ){
-        for(int j = 0 ; j < 26 ; j ++ ){
-            if(i > 0 && s[i]!='a'+j){
-                aut[i][j] = aut[pi[i-1]][j];
-            }else{
-                aut[i][j] = i + ('a'+j == s[i]);
+        else{
+            if(j!=0){
+                j=lps[j-1];
+            }
+            else{
+                lps[i]=0;
+                i++;
             }
         }
     }
-}
-vector<int> zFunction(string &str){
-    int n = str.length();
-    vector<int>ans(n);int l = 0,r = 0;
-    for(int i=1;i<n;i++){
-        if(i <= r){
-            ans[i] = min(ans[i-l],r-i+1);
+    i=0,j=0;
+    while(i<n){
+        if(s[i]==t[j]){
+            i++;
+            j++;
         }
-        while((i+ans[i])<n and (str[ans[i]] == str[i+ans[i]])){
-            ans[i]++;
+        if(j==m){
+            stt.insert(i-t.size());
+            j=lps[j-1];
         }
-        if((i+ans[i]-1)>r){
-            l = i;
-            r = i+ans[i]-1;
+        else if(i<n && s[i]!=t[j]){
+            if(j!=0){
+                j=lps[j-1];
+            }
+            else{
+                i++;
+            }
         }
     }
-    return ans;
 }
